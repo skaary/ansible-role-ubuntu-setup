@@ -1,0 +1,10 @@
+skip_list:
+  - 'yaml'
+  - 'risky-shell-pipe'
+  - 'git-latest'
+  - 'no-changed-when'
+  - 'literal-compare'
+  - 'internal-error'
+
+warn_list:
+  - 'internal-error'

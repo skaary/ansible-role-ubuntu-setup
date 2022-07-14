@@ -1,0 +1,5 @@
+---
+- name: Setup ubuntu specific things, e.g. packages
+  hosts: all
+  roles:
+    - ubuntu_setup

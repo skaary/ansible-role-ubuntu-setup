@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    apt_packages:
+      - lxappearance
+      - vim
+
+  pre_tasks:
+    - name: Update apt cache.
+      apt: update_cache=true cache_valid_time=600
+
+  tasks:
+    - name: "Include ansible-role-ubuntu-setup"
+      include_role:
+        name: "ansible-role-ubuntu-setup"
