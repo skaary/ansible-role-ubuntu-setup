@@ -12,6 +12,8 @@
         keyserver: "{{ default_keyserver }}"
     locale: en_US.UTF-8
     timezone: Europe/Berlin
+    pip3_packages:
+      - flashfocus
 
   pre_tasks:
     - name: Update apt cache.

@@ -39,3 +39,7 @@
 - name: include ufw setup
   include_tasks: ufw.yml
   when: ufw_wanted
+
+- name: include python setup
+  include_tasks: python.yml
+  when: python_3

@@ -1,0 +1,14 @@
+---
+- name: ensure python3 packages are installed
+  apt:
+    name: "{{ python_3_required_apt_packages + python3_apt_packages }}"
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: ensure python3 pip packages are installed
+  pip:
+    state: latest
+    name: "{{ python_3_required_pip_packages + pip3_packages }}"
+    executable: pip3
+  become: true
