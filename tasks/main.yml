@@ -1,41 +1,41 @@
 ---
-# Additional PPA keys.
 - name: Add keys for non-stock repositories.
   apt_key:
     keyserver: "{{ item.keyserver }}"
     id: "{{ item.fingerprint }}"
   with_items: "{{ ppas }}"
   become: true
-  tags:
-    - packages
-    - ppas
 
-# Additional repositories.
 - name: Add non-stock repositories.
   apt_repository:
     repo: "{{ item.source }}"
     state: present
   with_items: "{{ ppas }}"
   become: true
-  tags:
-    - packages
-    - ppas
 
-# - include: apt.yml
 - name: include package tasks
   include_tasks: packages.yml
-# - include: packages.yml
-# - include: locale.yml
 
 # System-level configuration.
-# - name: Makes sure expected directories, links and (empty) files are present.
-#   file:
-#     src: "{{ item.src | default('') }}"
-#     dest: "{{ item.dest }}"
-#     state: "{{ item.state }}"
-#     owner: "{{ item.owner | default(default_user) }}"
-#     group: "{{ item.group | default(default_group) }}"
-#   with_items: "{{ default_files }}"
-#   become: true
-#   tags:
-#     - setup
+- name: Makes sure expected directories, links and (empty) files are present.
+  file:
+    src: "{{ item.src | default('') }}"
+    dest: "{{ item.dest }}"
+    state: "{{ item.state }}"
+    owner: "{{ item.owner | default(default_user) }}"
+    group: "{{ item.group | default(default_group) }}"
+  with_items: "{{ default_files }}"
+  become: true
+
+- name: ensure a locale exists
+  locale_gen:
+    name: "{{ locale }}"
+    state: present
+
+- name: set timezone
+  timezone:
+    name: "{{ timezone }}"
+
+- name: include ufw setup
+  include_tasks: ufw.yml
+  when: ufw_wanted

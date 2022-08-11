@@ -1,24 +1,22 @@
 ---
 #Various packages.
-- name: Install packages.
+- name: ensure packages are installed.
   apt:
-    name: '{{ apt_packages }}'
+    name: "{{ apt_packages }}"
     state: latest
     update_cache: true
     cache_valid_time: 3600
   become: true
-  tags:
-    - packages
 
 # Individual packages (i.e. with no ppa).
-- name: Install non-ppa deb packages.
+- name: ensure non-ppa deb packages are installed.
   apt:
     deb: "{{ item }}"
   with_items: "{{ no_ppa_packages }}"
   become: true
 
 # Remove packages that should not be present.
-- name: Uninstall packages.
+- name: ensure packages are uninstalled.
   apt:
     name: "{{ item }}"
     state: absent
